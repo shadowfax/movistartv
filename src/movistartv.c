@@ -18,7 +18,7 @@ int main(int argc, char * argv[])
 #endif
 
 	/* Get the client profile */
-	client_profile = appserver_mvtv_get_client_profile();
+	appserver_mvtv_get_client_profile(&client_profile);
 	if (client_profile == NULL) {
 		fprintf(stderr, "ERROR: Failed to get client profile\n");
 #ifdef WIN32
@@ -28,8 +28,8 @@ int main(int argc, char * argv[])
 	}
 
 	/* Get the platform profile */
-	platform_profile = appserver_mvtv_get_platform_profile();
-	if (client_profile == NULL) {
+	appserver_mvtv_get_platform_profile(&platform_profile);
+	if (platform_profile == NULL) {
 		fprintf(stderr, "ERROR: Failed to get platform profile\n");
 		mvtv_client_profile_free(client_profile);
 #ifdef WIN32

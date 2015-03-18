@@ -30,12 +30,18 @@
     <ClCompile Include="..\src\appserver\mvtv.c">
       <Filter>Source Files\appserver</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\appserver\http.c">
+      <Filter>Source Files\appserver</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\sockets\socket.h">
       <Filter>Header Files\sockets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\appserver\mvtv.h">
+      <Filter>Header Files\appserver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\appserver\http.h">
       <Filter>Header Files\appserver</Filter>
     </ClInclude>
   </ItemGroup>

@@ -84,12 +84,15 @@
   <ItemGroup>
     <ClCompile Include="..\src\appserver\http.c" />
     <ClCompile Include="..\src\appserver\mvtv.c" />
+    <ClCompile Include="..\src\kernel\filesystem.c" />
     <ClCompile Include="..\src\movistartv.c" />
     <ClCompile Include="..\src\sockets\multicast.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\appserver\http.h" />
     <ClInclude Include="..\src\appserver\mvtv.h" />
+    <ClInclude Include="..\src\kernel\filesystem.h" />
+    <ClInclude Include="..\src\movistartv.h" />
     <ClInclude Include="..\src\sockets\multicast.h" />
     <ClInclude Include="..\src\sockets\socket.h" />
   </ItemGroup>

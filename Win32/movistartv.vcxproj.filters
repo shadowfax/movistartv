@@ -25,6 +25,12 @@
     <Filter Include="Source Files\sockets">
       <UniqueIdentifier>{8d572e05-041e-4321-a85d-875b447713f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\kernel">
+      <UniqueIdentifier>{75d4a843-3191-44fc-99fa-f2d8003a9a07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\kernel">
+      <UniqueIdentifier>{3529472b-2b6e-480d-b21b-3a6af77f29c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\movistartv.c">
@@ -39,6 +45,9 @@
     <ClCompile Include="..\src\sockets\multicast.c">
       <Filter>Source Files\sockets</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\kernel\filesystem.c">
+      <Filter>Source Files\kernel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\sockets\socket.h">
@@ -52,6 +61,12 @@
     </ClInclude>
     <ClInclude Include="..\src\sockets\multicast.h">
       <Filter>Header Files\sockets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\movistartv.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\kernel\filesystem.h">
+      <Filter>Header Files\kernel</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

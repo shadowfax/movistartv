@@ -17,7 +17,7 @@ struct sd_s_hdr_t {
 	unsigned int hdr_len : 4;
 };
 
-void multicast_service_discovery(char * address, unsigned int port)
+void multicast_service_discovery(char * address, unsigned int port, unsigned int payload_id, char **return_value)
 {
 	int sd, addrlen;
 	struct sockaddr_in addr;
@@ -25,6 +25,10 @@ void multicast_service_discovery(char * address, unsigned int port)
 	int reuse = 1;
 	int n;
 	unsigned char databuf[4096];
+	char *payload_data = NULL;
+	int payload_offset;
+	int payload_length;
+	int next_section = 0, return_value_offset;
 #ifdef WIN32
 	int timeout = 3000;
 #else
@@ -84,6 +88,7 @@ void multicast_service_discovery(char * address, unsigned int port)
 		addrlen = sizeof(addr);
 		n = recvfrom(sd, &databuf, 4096, 0, (struct sockaddr *) &addr, &addrlen);
 		if (n <= 0) {
+			// TODO: set a timeout for the function
 			printf("ERROR: cannot receive data\n");
 			continue;
 		}
@@ -106,9 +111,49 @@ void multicast_service_discovery(char * address, unsigned int port)
 		header->provider_id_flag = ((unsigned int)databuf[11] >> 4) & 0x01;
 		header->hdr_len = (unsigned int)databuf[11] & 0x0F;
 
-		printf("Received payload id %d and section number %d\n", header->payload_id, header->section_number );
-		
+		/* Shall we process the payload data? */
+		if (header->payload_id == payload_id) {
+			if (header->section_number == next_section) {
+				payload_offset = 12;
+				payload_length = n - (12 + header->hdr_len);
+				if (header->crc_flag) {
+					payload_length -= 4;
+				}
+				if (header->provider_id_flag) {
+					payload_length -= 4;
+					payload_offset += 4;
+				}
+				payload_offset += header->hdr_len;
 
+				payload_data = (char *)malloc(payload_length + 1);
+				memset(payload_data, 0, payload_length + 1);
+				strncpy(payload_data, databuf + payload_offset, payload_length);
+
+				/*
+				printf("Received payload id %d and section number %d with payload\n", header->payload_id, header->section_number);
+				printf("%s\n\n", payload_data);
+				*/
+
+				if (next_section == 0) {
+					/*printf("Total segment size: %d\n", header->total_segment_size);*/
+					*return_value = (char *)malloc(header->total_segment_size + 1400);
+					memset(*return_value, 0, header->total_segment_size + 1400);
+					return_value_offset = 0;
+				}
+
+				/* printf("Current offset: %d\nPayload length: %d\nTotal: %d\n", return_value_offset, payload_length, return_value_offset + payload_length); */
+				memcpy(*return_value + return_value_offset, payload_data, payload_length);
+				return_value_offset += payload_length;
+
+				if (next_section == header->last_section_number) {
+					break; /* end loop */
+				}
+				next_section++;
+
+				/* Free memory */
+				free(payload_data);
+			}
+		}
 		free(header);
 	}
 

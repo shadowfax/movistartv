@@ -22,6 +22,9 @@
     <Filter Include="Source Files\appserver">
       <UniqueIdentifier>{51ad5932-875e-4a85-941a-acc708050754}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\sockets">
+      <UniqueIdentifier>{8d572e05-041e-4321-a85d-875b447713f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\movistartv.c">
@@ -33,6 +36,9 @@
     <ClCompile Include="..\src\appserver\http.c">
       <Filter>Source Files\appserver</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\sockets\multicast.c">
+      <Filter>Source Files\sockets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\sockets\socket.h">
@@ -43,6 +49,9 @@
     </ClInclude>
     <ClInclude Include="..\src\appserver\http.h">
       <Filter>Header Files\appserver</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sockets\multicast.h">
+      <Filter>Header Files\sockets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

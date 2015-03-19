@@ -1,5 +1,6 @@
 #include "sockets/socket.h"
 #include "appserver/mvtv.h"
+#include "sockets/multicast.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -39,7 +40,11 @@ int main(int argc, char * argv[])
 	}
 	
 	/* TODO: Do some stuff! */
+	char *dvb_entry_point_addr = strtok(platform_profile->dvb_config->dvb_entry_point, ":");
+	int dvb_entry_point_port = strtol(strtok(NULL, ":"), NULL, 10);
 
+	multicast_service_discovery(dvb_entry_point_addr, dvb_entry_point_port);
+	
 	/* Free memory */
 	if (client_profile) {
 		mvtv_client_profile_free(client_profile);
